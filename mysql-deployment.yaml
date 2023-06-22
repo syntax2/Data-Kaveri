@@ -1,23 +1,45 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
-metadata: 
-  name: db
+metadata:
+  name: mysql-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
   template:
-    image: mysql
-  port:
-    3306
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
+        - name: MYSQL_DATABASE  # Add this line
+          value: mydb  # Replace with your desired database name
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        emptyDir: {}
 
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: db
+  name: mysql-service
 spec:
-  ports: 
-    3306:3306
-  type: ClusterIp
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
 
-  

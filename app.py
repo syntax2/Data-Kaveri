@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Create the "user" table if it doesn't exist
 def create_user_table():
     cnx = mysql.connector.connect(user='root', password='secret',
-                                  host='db', database='mydb')
+                                  host='mysql-service', database='mydb')
     cursor = cnx.cursor()
 
     # SQL statement to create the "user" table
@@ -37,7 +37,7 @@ def hello():
 
         # Connect to MySQL database
         cnx = mysql.connector.connect(user='root', password='secret',
-                                      host='db', database='mydb')
+                                      host='mysql-service', database='mydb')
         cursor = cnx.cursor()
 
         # Create the "user" table if it doesn't exist

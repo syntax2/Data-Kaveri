@@ -3,21 +3,20 @@ kind: Deployment
 metadata:
   name: flask-app
 spec:
-  selector:
-    matchLables:
-      app: python
   replicas: 1
+  selector:
+    matchLabels:
+      app: python
   template:
     metadata:
       labels:
         app: python
     spec:
       containers:
-        - name: flask-app
-          image: ashishkadian/flask-app:v1
-          ports:
-            - containerPort: 8000
-
+      - name: flask-app
+        image: ashishkadian/flask-app:v3
+        ports:
+        - containerPort: 8000
 
 
 ---
@@ -28,8 +27,9 @@ metadata:
 spec:
   selector:
     app: python
-    ports:
-      - protocol: TCP
-        port: 8000
-        targetPort: 8000
-    type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort
+
