@@ -17,7 +17,13 @@ spec:
         image: ashishkadian/flask-app:v3
         ports:
         - containerPort: 8000
-
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 200m
+            memory: 200Mi
 
 ---
 apiVersion: v1
@@ -45,4 +51,5 @@ spec:
     name: flask-app
   minReplicas: 1
   maxReplicas: 3
-  targetCPUUtilizationPercentage: 5
+  targetCPUUtilizationPercentage: 40
+

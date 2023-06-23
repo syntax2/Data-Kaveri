@@ -9,7 +9,6 @@ def create_user_table():
                                   host='mysql-service', database='mydb')
     cursor = cnx.cursor()
 
-    # SQL statement to create the "user" table
     create_table_query = '''
     CREATE TABLE IF NOT EXISTS `user` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
