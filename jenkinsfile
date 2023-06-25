@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    options{
+        BuildDiscarder(logRotator(numToKeepStr:'10'))
+        Timeout(time:10 , unit: 'MINUTES')
+    }
+    stages {
+        stage ('test'){
+            steps {
+                sh echo 'this is a custom test to check the app image version is 3'
+
+            }
+        }
+        stage ('deploy database') {
+            steps {
+                sh 'minikube start'
+            }
+        } 
+        stage ('deploy application') {
+            steps {
+                sh 'kubectl apply -f flask-delpoyment.yml'
+                sh 'kubectl apply -f mysql-delpoyment.yaml'
+            
+            }
+        }
+    }
+}
