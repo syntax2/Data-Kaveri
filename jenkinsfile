@@ -8,7 +8,8 @@ pipeline {
         stage ('test'){
             steps {
                 sh echo 'this is a custom test to check the app image version is 3'
-
+		sh 'git clone https://github.com/syntax2/Data-Kaveri.git'
+		sh 'cd Data-Kaveri'
             }
         }
         stage ('deploy database') {
